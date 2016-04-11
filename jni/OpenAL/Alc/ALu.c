@@ -491,8 +491,10 @@ ALvoid CalcSourceParams(ALsource *ALSource, const ALCcontext *ALContext)
         WetGain[i] = ALfpMult(SourceVolume, RoomAttenuation[i]);
 
     EffectiveDist = int2ALfp(0);
-    if(MinDist > int2ALfp(0) && Attenuation < int2ALfp(1))
+    if(MinDist > int2ALfp(0) && Attenuation < int2ALfp(1) && Attenuation != int2ALfp(0))
+    {
         EffectiveDist = ALfpMult((ALfpDiv(MinDist,Attenuation) - MinDist),MetersPerUnit);
+    }
 
     // Distance-based air absorption
     if(AirAbsorptionFactor > int2ALfp(0) && EffectiveDist > int2ALfp(0))
